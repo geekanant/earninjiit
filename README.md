@@ -1,7 +1,7 @@
 <br />
 <p align="center">
   <a href="https://github.com/geekanant/earninjiit">
-    <img src="client/public/img/logo-landing.png" alt="Logo" width="80" height="80">
+    <img src="client/public/img/WithoutText/png" alt="Logo" width="80" height="80">
   </a>
 
   <h3 align="center">EARN IN JIIT</h3>
