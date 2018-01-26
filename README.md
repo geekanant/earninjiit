@@ -10,11 +10,11 @@
     Making freelancing easier in college.
     <br />
     <br />
-    <a href="https://www.youtube.com/watch?v=K47js-WHmuQ">View Video Demo</a>
+    <a href="https://www.youtube.com/watch?v=K47js-WHmuQ" target="_blank">View Video Demo</a>
     ·
-    <a href="https://github.com/geekanant/earninjiit/issues">Report Bug</a>
+    <a href="https://github.com/geekanant/earninjiit/issues" target="_blank">Report Bug</a>
     ·
-    <a href="https://github.com/geekanant/earninjiit/issues">Request Feature</a>
+    <a href="https://github.com/geekanant/earninjiit/issues" target="_blank">Request Feature</a>
   </p>
 </p>
 
