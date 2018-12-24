@@ -37,6 +37,23 @@ users.post("/register", (req, res) => {
     });
 });
 
+users.get("/posts", (req, res) => {
+  Post.find(
+    {
+      created: { $gt: new Date(Date.now() - 24 * 60 * 60 * 7 * 1000) },
+      postedBy: { $ne: req.query.postedBy },
+    },
+    function (error, posts) {
+      if (error) {
+        console.error(error);
+      }
+      res.send({
+        posts: posts,
+      });
+    }
+  ).sort({ created: -1 });
+});
+
 users.post("/newPost", (req, res) => {
   const postData = {
     title: req.body.title,
