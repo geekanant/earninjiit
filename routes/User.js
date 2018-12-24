@@ -2,6 +2,7 @@ const express = require("express");
 const users = express.Router();
 const cors = require("cors");
 const User = require("../database/models/User");
+const Post = require("../database/models/Post");
 users.use(cors());
 
 users.post("/register", (req, res) => {
@@ -34,6 +35,27 @@ users.post("/register", (req, res) => {
     .catch((err) => {
       res.send("error: " + err);
     });
+});
+
+users.post("/newPost", (req, res) => {
+  const postData = {
+    title: req.body.title,
+    startby: req.body.startby,
+    needitby: req.body.needitby,
+    price: req.body.price,
+    needat: req.body.needat,
+    content: req.body.content,
+    additionaldetails: req.body.additionaldetails,
+    created: new Date(),
+    category: req.body.category,
+    postedBy: req.body.userId,
+    postedByName: req.body.postedByName,
+    postedByEmail: req.body.postedByEmail,
+  };
+
+  Post.create(postData);
+
+  res.send(true);
 });
 
 module.exports = users;
