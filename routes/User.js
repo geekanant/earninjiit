@@ -2,6 +2,8 @@ const express = require("express");
 const users = express.Router();
 const cors = require("cors");
 const User = require("../database/models/User");
+const Bug = require("../database/models/Bug");
+
 const Post = require("../database/models/Post");
 users.use(cors());
 
@@ -160,6 +162,19 @@ users.post("/newPost", (req, res) => {
 
   Post.create(postData);
 
+  res.send(true);
+});
+
+users.post("/newBug", (req, res) => {
+  const bugData = {
+    needat: req.body.needat,
+    content: req.body.content,
+    created: new Date(),
+    postedBy: req.body.userId,
+    postedByName: req.body.postedByName,
+    postedByEmail: req.body.postedByEmail,
+  };
+  Bug.create(bugData);
   res.send(true);
 });
 
