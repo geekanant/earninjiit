@@ -41,6 +41,53 @@ users.post("/register", (req, res) => {
     });
 });
 
+users.post("/updatePhone", (req, res) => {
+  User.findOne({
+    email: req.body.email,
+  })
+    .then((user) => {
+      if (user) {
+        if (req.body.phone != "") {
+          user
+            .update({
+              phone: req.body.phone,
+              modeofcontact: req.body.modeofcontact,
+            })
+
+            .then((user) => {
+              res.send(user);
+            })
+            .catch((err) => {
+              res.send("error: " + err);
+            });
+        } else {
+          user
+            .updateOne({ modeofcontact: req.body.modeofcontact })
+
+            .then((user) => {
+              res.send(user);
+            })
+            .catch((err) => {
+              res.send("error: " + err);
+            });
+        }
+      } else {
+        res.json({ error: "User already exists" });
+      }
+    })
+    .catch((err) => {
+      res.send("error: " + err);
+    });
+});
+
+users.get("/postcontact", (req, res) => {
+  User.findOne({
+    email: req.query.postedByEmail,
+  }).then((user) => {
+    res.send(user);
+  });
+});
+
 users.get("/categories", (req, res) => {
   const categories = [
     {
