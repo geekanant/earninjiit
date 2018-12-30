@@ -129,6 +129,17 @@ users.get("/categories", (req, res) => {
   });
 });
 
+users.get("/posts/:id", (req, res) => {
+  Post.find({ _id: req.params.id }, function (error, posts) {
+    if (error) {
+      console.error(error);
+    }
+    res.send({
+      posts: posts,
+    });
+  });
+});
+
 users.get("/posts", (req, res) => {
   Post.find(
     {
