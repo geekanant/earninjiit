@@ -3,6 +3,8 @@ const users = express.Router();
 const cors = require("cors");
 const User = require("../database/models/User");
 const Bug = require("../database/models/Bug");
+const Advertise = require("../database/models/Advertise");
+const ReportedUsers = require("../database/models/ReportedUsers");
 
 const Post = require("../database/models/Post");
 users.use(cors());
@@ -175,6 +177,32 @@ users.post("/newBug", (req, res) => {
     postedByEmail: req.body.postedByEmail,
   };
   Bug.create(bugData);
+  res.send(true);
+});
+
+users.post("/advertise", (req, res) => {
+  const adData = {
+    title: req.body.title,
+    email: req.body.email,
+    created: new Date(),
+    postedBy: req.body.userId,
+    postedByName: req.body.postedByName,
+    postedByEmail: req.body.postedByEmail,
+  };
+  Advertise.create(adData);
+  res.send(true);
+});
+
+users.post("/reportUser", (req, res) => {
+  const adData = {
+    email: req.body.email,
+    created: new Date(),
+    postedBy: req.body.userId,
+    reportedPost: req.body.reportedPost,
+    reportedByName: req.body.reportedByName,
+    reportedByEmail: req.body.reportedByEmail,
+  };
+  ReportedUsers.create(adData);
   res.send(true);
 });
 
