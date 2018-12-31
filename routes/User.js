@@ -1,6 +1,7 @@
 const express = require("express");
 const users = express.Router();
 const cors = require("cors");
+const jwt = require("jsonwebtoken");
 const User = require("../database/models/User");
 const Bug = require("../database/models/Bug");
 const Advertise = require("../database/models/Advertise");
@@ -184,6 +185,47 @@ users.get("/posts/:id", (req, res) => {
     res.send({
       posts: posts,
     });
+  });
+});
+
+users.get("/posts/:id/delete", (req, res) => {
+  Post.deleteOne({ _id: req.params.id }, function (error, posts) {
+    if (error) {
+      console.error(error);
+    }
+
+    res.send({
+      posts: posts,
+    });
+  });
+});
+
+users.post("/posts/:id/edit", (req, res) => {
+  Post.findOne({
+    _id: req.params.id,
+  }).then((post) => {
+    if (post) {
+      post
+        .updateOne({
+          title: req.body.title,
+          startby: req.body.startby,
+          needitby: req.body.needitby,
+          price: req.body.price,
+          needat: req.body.needat,
+          content: req.body.content,
+          additionaldetails: req.body.additionaldetails,
+          category: req.body.category,
+          postedBy: req.body.userId,
+          postedByName: req.body.postedByName,
+          postedByEmail: req.body.postedByEmail,
+        })
+        .then((post) => {
+          res.send(post);
+        })
+        .catch((err) => {
+          res.send("error: " + err);
+        });
+    }
   });
 });
 
