@@ -188,6 +188,14 @@ users.get("/posts/:id", (req, res) => {
   });
 });
 
+users.get("/getmodecontact", (req, res) => {
+  User.findOne({
+    email: req.query.email,
+  }).then((user) => {
+    res.send(user);
+  });
+});
+
 users.get("/posts/:id/delete", (req, res) => {
   Post.deleteOne({ _id: req.params.id }, function (error, posts) {
     if (error) {
