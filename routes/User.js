@@ -271,6 +271,77 @@ users.get("/archivedposts", (req, res) => {
   ).sort({ created: -1 });
 });
 
+users.get("/myposts", (req, res) => {
+  Post.find({ postedBy: req.query.postedBy }, function (error, posts) {
+    if (error) {
+      console.error(error);
+    }
+    res.send({
+      posts: posts,
+    });
+  }).sort({ created: -1 });
+});
+
+users.get("/findposts", (req, res) => {
+  if (req.query.category == "") {
+    Post.find(
+      {
+        created: { $gt: new Date(Date.now() - 24 * 60 * 60 * 7 * 1000) },
+        postedBy: { $ne: req.query.postedBy },
+      },
+      function (error, posts) {
+        if (error) {
+          console.error(error);
+        }
+        res.send({
+          posts: posts,
+        });
+      }
+    ).sort({ created: -1 });
+  } else {
+    Post.find(
+      {
+        category: req.query.category,
+        created: { $gt: new Date(Date.now() - 24 * 60 * 60 * 7 * 1000) },
+        postedBy: { $ne: req.query.postedBy },
+      },
+      function (error, posts) {
+        if (error) {
+          console.error(error);
+        }
+        res.send({
+          posts: posts,
+        });
+      }
+    ).sort({ created: -1 });
+  }
+});
+
+users.get("/myfindposts", (req, res) => {
+  if (req.query.category == "") {
+    Post.find({ postedBy: req.query.postedBy }, function (error, posts) {
+      if (error) {
+        console.error(error);
+      }
+      res.send({
+        posts: posts,
+      });
+    }).sort({ created: -1 });
+  } else {
+    Post.find(
+      { postedBy: req.query.postedBy, category: req.query.category },
+      function (error, posts) {
+        if (error) {
+          console.error(error);
+        }
+        res.send({
+          posts: posts,
+        });
+      }
+    ).sort({ created: -1 });
+  }
+});
+
 users.get("/archivedfindposts", (req, res) => {
   if (req.query.category == "") {
     Post.find(
