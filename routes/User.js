@@ -254,6 +254,57 @@ users.get("/posts", (req, res) => {
   ).sort({ created: -1 });
 });
 
+users.get("/archivedposts", (req, res) => {
+  Post.find(
+    {
+      created: { $lt: new Date(Date.now() - 24 * 60 * 60 * 7 * 1000) },
+      postedBy: { $ne: req.query.postedBy },
+    },
+    function (error, posts) {
+      if (error) {
+        console.error(error);
+      }
+      res.send({
+        posts: posts,
+      });
+    }
+  ).sort({ created: -1 });
+});
+
+users.get("/archivedfindposts", (req, res) => {
+  if (req.query.category == "") {
+    Post.find(
+      {
+        created: { $lt: new Date(Date.now() - 24 * 60 * 60 * 7 * 1000) },
+        postedBy: { $ne: req.query.postedBy },
+      },
+      function (error, posts) {
+        if (error) {
+          console.error(error);
+        }
+        res.send({
+          posts: posts,
+        });
+      }
+    ).sort({ created: -1 });
+  } else {
+    Post.find(
+      {
+        category: req.query.category,
+        created: { $lt: new Date(Date.now() - 24 * 60 * 60 * 7 * 1000) },
+      },
+      function (error, posts) {
+        if (error) {
+          console.error(error);
+        }
+        res.send({
+          posts: posts,
+        });
+      }
+    ).sort({ created: -1 });
+  }
+});
+
 users.post("/newPost", (req, res) => {
   const postData = {
     title: req.body.title,
