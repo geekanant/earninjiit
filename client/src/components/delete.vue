@@ -28,8 +28,8 @@
           </li>
           <li class="nav-item" v-if="authUser">
             <router-link class="nav-link" to="/archivedposts"
-              >Post
-            </router-link>
+              >Post Archives</router-link
+            >
           </li>
           <li class="nav-item dropdown" v-if="authUser">
             <a
