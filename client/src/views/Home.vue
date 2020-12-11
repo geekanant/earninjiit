@@ -3,7 +3,6 @@
 
 <div>
     <div  class="container" v-if="signup"> 
-    <h6 class="text-center mt-4">Posts in the past 1 week will appear here.</h6>
        <div class="input-group">
        <select  class="abc form-control mt-3" v-model="category" @change="categoryfind()"  >
                 <option value=""  selected="selected">Filter a category </option>
@@ -320,7 +319,7 @@ export default {
         },
       
         getArticles(){
-             Axios.get('/users/posts',{
+             Axios.get('/users/archivedposts',{
                 params: {
                     postedBy: this.postedBy,
                 }             
@@ -352,7 +351,7 @@ export default {
         },
         
         categoryfind(){
-            Axios.get('/users/findposts',{
+            Axios.get('/users/archivedfindposts',{
                 params: {
                     category: this.category,
                     postedBy: this.postedBy,
