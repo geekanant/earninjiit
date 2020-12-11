@@ -47,7 +47,13 @@ new Vue({
   methods: {
     initFirebase() {
       const firebaseApp = firebase.initializeApp({
-        xxx,
+        apiKey: "",
+        authDomain: "",
+        databaseURL: "",
+        projectId: "",
+        storageBucket: "",
+        messagingSenderId: "",
+        appId: "",
       });
     },
   },
