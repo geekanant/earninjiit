@@ -9,7 +9,7 @@ app.use(bodyParser.json());
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-const mongoURI = "mongodb://xxxxx@ds145694.mlab.com:45694/earninjiit";
+const mongoURI = process.env.MONGO_URL;
 
 mongoose
   .connect(mongoURI, { useNewUrlParser: true })
